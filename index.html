@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Will You Be My Valentine?</title>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        background: linear-gradient(to bottom, #ffe0e6, #fff0f5);
+        font-family: 'Comic Sans MS', cursive, sans-serif;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        text-align: center;
+    }
+
+    h1 {
+        font-size: 2.5rem;
+        color: #ff0066;
+        margin-bottom: 40px;
+        animation: pulse 1.5s infinite;
+        z-index: 10;
+        position: relative;
+    }
+
+    @keyframes pulse {
+        0%,100% { transform: scale(1); }
+        50% { transform: scale(1.2); }
+    }
+
+    button {
+        font-size: 1.5rem;
+        padding: 15px 40px;
+        margin: 20px;
+        border: none;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: transform 0.2s;
+        position: relative;
+        z-index: 10;
+    }
+
+    button:hover { transform: scale(1.1); }
+
+    .yes-btn { background: #ff4d6d; color: white; }
+    .no-btn { background: #ffcccc; color: #990000; }
+
+    .emoji {
+        position: absolute;
+        font-size: 1.5rem;
+        animation: floatEmojis 5s linear infinite;
+        z-index: 0;
+        pointer-events: none;
+    }
+
+    @keyframes floatEmojis {
+        0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+        100% { transform: translateY(-800px) rotate(360deg); opacity: 0; }
+    }
+
+    /* Moving No button */
+    .no-btn-move {
+        position: absolute;
+        animation: moveNo 3s infinite alternate ease-in-out;
+    }
+
+    @keyframes moveNo {
+        0% { transform: translate(0, 0); }
+        25% { transform: translate(80px, 50px); }
+        50% { transform: translate(-50px, 100px); }
+        75% { transform: translate(100px, -50px); }
+        100% { transform: translate(0, 0); }
+    }
+
+</style>
+</head>
+<body>
+
+<h1>Kishu, will you be my Valentine? 🫶🏻</h1>
+<button class="yes-btn" onclick="yesClick()">Yes 💖</button>
+<button class="no-btn no-btn-move" onclick="noClick()">No 😡</button>
+
+<audio id="romanticMusic" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio>
+
+<script>
+    const body = document.body;
+    const music = document.getElementById('romanticMusic');
+
+    // Array of emojis for background
+    const emojis = ['💖','💋','🐒','🐣','🫂','😘','❤️','🎉','🥰','💌'];
+
+    // Function to create floating emojis
+    function createEmoji() {
+        const emoji = document.createElement('div');
+        emoji.classList.add('emoji');
+        emoji.style.left = Math.random()*window.innerWidth + 'px';
+        emoji.style.fontSize = (20 + Math.random()*30) + 'px';
+        emoji.innerText = emojis[Math.floor(Math.random()*emojis.length)];
+        body.appendChild(emoji);
+        setTimeout(() => emoji.remove(), 5000);
+    }
+    setInterval(createEmoji, 300);
+
+    // Yes Click
+    function yesClick() {
+        music.play();
+        navigator.vibrate(200);
+        body.innerHTML = `<h1>Aww, I lovee youu 🫶🏻</h1>`;
+        createBalloons();
+        createConfetti();
+        const yesBtn = document.createElement('button');
+        yesBtn.innerText = "Next 💕";
+        yesBtn.className = "yes-btn";
+        yesBtn.onclick = () => { window.location.href = "yespage.html"; };
+        body.appendChild(yesBtn);
+    }
+
+    // No Click
+    function noClick() {
+        navigator.vibrate([100,50,100]);
+        body.innerHTML = `<h1>Itni himmat yess daba 😡</h1>`;
+        const yesBtn = document.createElement('button');
+        yesBtn.innerText = "Ok, Yes 💖";
+        yesBtn.className = "yes-btn";
+        yesBtn.onclick = yesClick;
+        body.appendChild(yesBtn);
+    }
+
+    function createBalloons() {
+        for(let i=0;i<6;i++){
+            const balloon = document.createElement('div');
+            balloon.classList.add('emoji');
+            balloon.innerText = ['🎈','🎉','💖','🥰'][Math.floor(Math.random()*4)];
+            balloon.style.left = Math.random()*window.innerWidth + 'px';
+            balloon.style.fontSize = (30 + Math.random()*30) + 'px';
+            body.appendChild(balloon);
+            setTimeout(() => balloon.remove(), 4000);
+        }
+    }
+
+    function createConfetti() {
+        for(let i=0;i<30;i++){
+            const confetti = document.createElement('div');
+            confetti.classList.add('emoji');
+            confetti.innerText = ['🎊','✨','💥','💫'][Math.floor(Math.random()*4)];
+            confetti.style.left = Math.random()*window.innerWidth + 'px';
+            confetti.style.fontSize = (20 + Math.random()*20) + 'px';
+            body.appendChild(confetti);
+            setTimeout(() => confetti.remove(), 3000);
+        }
+    }
+</script>
+
+</body>
+</html>

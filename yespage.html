@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hehe I Love You!</title>
+<style>
+  body {
+    margin: 0;
+    padding: 0;
+    background: #ffccd9;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 100vh;
+    font-family: 'Comic Sans MS', cursive, sans-serif;
+    text-align: center;
+  }
+  h1 {
+    font-size: 3rem;
+    color: #ff0066;
+    animation: pulse 1.5s infinite;
+  }
+  @keyframes pulse {
+    0%,100% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+  }
+  .emoji {
+    position: absolute;
+    font-size: 2rem;
+    animation: float 4s linear infinite;
+  }
+  @keyframes float {
+    0% { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(-800px) rotate(360deg); }
+  }
+</style>
+</head>
+<body>
+<h1>Hehe, I lovee you bchaaa I will always be there for you 🫂💖</h1>
+<script>
+const emojis = ['💖','💋','🐒','🐣','🥰','🫂','😘'];
+function createEmoji() {
+    const e = document.createElement('div');
+    e.classList.add('emoji');
+    e.innerText = emojis[Math.floor(Math.random()*emojis.length)];
+    e.style.left = Math.random()*window.innerWidth + 'px';
+    e.style.fontSize = (20 + Math.random()*30) + 'px';
+    document.body.appendChild(e);
+    setTimeout(() => e.remove(), 4000);
+}
+setInterval(createEmoji, 300);
+</script>
+</body>
+</html>
